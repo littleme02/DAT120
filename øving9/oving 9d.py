@@ -29,7 +29,7 @@ class question:
         return(self.alternatives[int(self.answer)])
     
 
-inputfilename = "" #input("Input file(empty for sporsmaalsfil.txt): ")
+inputfilename = "" #input("Input file(empty for sporsmaalsfil.txt): ") #Commented out for dev
 if inputfilename == "":
     inputfilename = "sporsmaalsfil.txt"
 
@@ -45,12 +45,45 @@ for line in inputfile:
     templist = []
     line[2] = re.findall("\w+", line[2])
     
-    qustobs.append(question(line[0].strip(),line[2],line[1].strip()))
+    qustobs.append(question(line[0].strip(),line[2],int(line[1].strip())))
     
-for svar in qustobs:
-    print(svar.ask())
-    print(svar.korrekt_svar_teks()+ "\n")
+# for svar in qustobs:
+#     print(svar.ask())
+#     print(svar.korrekt_svar_teks()+ "\n")
     
 
 if __name__ == "__main__" :
-    print("done")
+    
+    p1score = 0
+    p2score = 0
+    p1ans = ""
+    p2ans = ""
+    
+    for game in qustobs:
+        
+        print(game.ask())
+        
+        p1ans = int(input("Player 1: "))-1
+        p2ans = int(input("Player 2: "))-1
+        
+        print("\n" + "Correct answer: " + game.korrekt_svar_teks().capitalize() + "\n" )
+        if p1ans == game.answer:
+            p1score += 1
+            print("Player 1 Correct")
+        else: 
+            print("Player 1 BAD")
+        
+        if p2ans == game.answer:
+            p2score += 1
+            print("Player 2 correct")
+        else: print("Player 2 BAD")
+        print("\n")
+        
+        
+    print("Player 1 score: " + str(p1score))
+    print("Player 2 score: " + str(p2score))
+    
+    if p1score > p2score:        print("Player 1 wins")
+    elif p1score < p2score:      print("Player 2 wins")
+    elif p1score == p2score:     print("Draw")
+    

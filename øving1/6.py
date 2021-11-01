@@ -1,0 +1,1 @@
+print(ord(input("Utf-8: ")))
